@@ -1,10 +1,11 @@
 
 const express = require("express");
+require('dotenv').config();
 const util = require("util");
-const database = require('./databse/db');
+const database = require('./lib/db');
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser")
-require('dotenv').config();
+
 const cors = require('cors')
 const router = require("./routes");
 const uploadImage = require("./routes/upload");

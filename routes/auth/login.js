@@ -1,5 +1,5 @@
 const {generateToken,generateRefreshToken} = require("../../helpers/jwtSign");
-const HomeOwner = require("../../models/owner-model/registration")
+const HomeOwner = require("../../models/user-model/registration")
 const ErroHandler =  require("../../middleware/errorHandler")
 const bcrypt = require('bcrypt')
 

@@ -1,5 +1,5 @@
 // const ErroHandler = require("../../middleware/errorHandler");
-const HomeOwner = require("../../models/owner-model/registration");
+const HomeOwner = require("../../models/user-model/registration");
 
 const List = async (req, res,next) => {
     try {

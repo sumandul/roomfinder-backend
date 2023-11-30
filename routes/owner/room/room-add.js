@@ -1,5 +1,5 @@
 const ErroHandler = require("../../../middleware/errorHandler");
-const RoomPost = require("../../../models/owner-model/post");
+const RoomPost = require("../../../models/user-model/post");
 const ImgaeUploadService = require("../../..")
 
 const RoomAdd = async (req, res, next) => {
@@ -14,6 +14,7 @@ const RoomAdd = async (req, res, next) => {
       status: "ok",
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: "Server error " });
   }
 };

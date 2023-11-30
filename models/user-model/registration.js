@@ -15,7 +15,16 @@ const homeOwnerSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-
+type:{
+  type:String,
+  required:true,
+  default:"user"
+},
+verified:{
+type:Boolean,
+required:true,
+default:false
+},
   email:{
     type:String,
     required: true,
@@ -24,6 +33,7 @@ const homeOwnerSchema = new mongoose.Schema({
     type:String,
     required: true,
   }
+
 },{
   // Exclude the '__v' field from query results
   versionKey: false,
@@ -54,6 +64,6 @@ homeOwnerSchema.pre('save', async function(next) {
   }
 });
 
-const HomeOwner = mongoose.model("HomeOwner", homeOwnerSchema);
+const User = mongoose.model("Users", homeOwnerSchema);
 
-module.exports = HomeOwner;
+module.exports = User;

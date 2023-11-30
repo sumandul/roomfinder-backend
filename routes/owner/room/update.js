@@ -1,4 +1,4 @@
-const RoomPost = require("../../../models/owner-model/post");
+const RoomPost = require("../../../models/user-model/post");
 
 const RoomUpdate = async ({ params, body }, res, next) => {
   try {
