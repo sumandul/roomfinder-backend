@@ -12,6 +12,10 @@ const LocationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  address: {
+    type: String,
+    required: true,
+  },
   tole: {
     type: String,
     required: true,

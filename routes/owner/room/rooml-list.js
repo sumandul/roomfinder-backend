@@ -1,22 +1,33 @@
 const RoomPost = require("../../../models/user-model/post");
+const { getMyProfile } = require("../../../helpers/jwtSign");
 
-
-const defaultConfig={
-  limit:5,
-  page:1,
-  address:"",
-  title:"",
-
-
-}
-const Room = async ({query}, res, next) => {
-const { limit,page,address,title,gt,lte}={...defaultConfig,...query}
-
-
+const defaultConfig = {
+  limit: 5,
+  page: 1,
+  address: "",
+  title: "",
+};
+const Room = async (req, res, next) => {
+  const { query } = req;
+  const { limit, page, address, title, gt, lte,lt } = {
+    ...defaultConfig,
+    ...query,
+  };
+  const id = getMyProfile(req);
   try {
-    const total = await RoomPost.countDocuments();
-    const totalPages = Math.ceil(total/ limit);
-    const  list  =  await RoomPost.find()
+    const total = await RoomPost.countDocuments({ userId: id });
+
+    const totalPages = Math.ceil(total / limit);
+    const list = await RoomPost.find({
+      userId: id,
+      title: { $regex: title, $options: "i" },
+      address: { $regex: address, $options: "i" },
+      price: {
+        $gt: gt,       // Greater than
+        // $lte: lte,     // Less than or equal to
+        // $lt: lt        // Less than
+    },
+    });
     // console.log(list)
     // const list = await RoomPost.find({
     //   title: { $regex: title, $options: "i" },
@@ -25,7 +36,7 @@ const { limit,page,address,title,gt,lte}={...defaultConfig,...query}
     // })
     //   .skip((page - 1) * limit)
     //   .limit(limit);
-      // console.log(list)
+    // console.log(list)
 
     res.status(200).json({
       list,
@@ -34,6 +45,7 @@ const { limit,page,address,title,gt,lte}={...defaultConfig,...query}
       total,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };

@@ -18,12 +18,4 @@ exports.mailTransport = () =>
       pass: process.env.MAILTRAP_PASSWORD,
     },
   });
-exports.verifyEmail = async (req, res) => {
-  const { userId, otp } = req.body;
-  if (!user || !otp.trim()) return res.send({ message: "INVALID" });
-  if (!isValidObjectId(userId))
-    return res.send({ message: "sorry user not found" });
-  const user = await User.findById(userId);
-  if (user.verified)
-    return res.send({ message: "this account is already verified" });
-};
+
