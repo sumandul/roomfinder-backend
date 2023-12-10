@@ -3,7 +3,7 @@ const HomeOwner = require("../../models/user-model/registration")
 const ErroHandler =  require("../../middleware/errorHandler")
 const bcrypt = require('bcrypt')
 
-const Login = async (req, res,next) => {
+ module.exports = async (req, res,next) => {
     try {
       const { email, password } = req.body;
       // Find the owner by email or contact (phone number)
@@ -16,11 +16,11 @@ const Login = async (req, res,next) => {
     if (!passwordMatch) {
       return next(new ErroHandler("Invalid Crendentails",400))
     }
-    const access_token = generateToken(IsExist);
-   const refresh_token=  generateRefreshToken(IsExist)
+    const authorizationToken = generateToken(IsExist);
+   const     refreshToken=  generateRefreshToken(IsExist)
       res.status(200).json({
-        access_token,
-        refresh_token
+        authorizationToken,
+        refreshToken
         
       });
     } catch (error) {
@@ -29,6 +29,5 @@ const Login = async (req, res,next) => {
     }
   };
 
-  module.exports = Login;
 
   

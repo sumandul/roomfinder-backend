@@ -2,6 +2,7 @@ const ErroHandler = require("../../middleware/errorHandler");
 const User = require("../../models/user-model/registration");
 const verificationToken = require("../../models/user-model/verificationToken");
 const { generateOTP,mailTransport} = require("../../utlis/mail");
+const  randToken =require('rand-token');
 
 const Registration = async (req, res, next) => {
   try {
@@ -22,6 +23,7 @@ const Registration = async (req, res, next) => {
       token: OTP,
     });
     await verifedToken.save();
+    newOwner.token = randToken.uid(64).split("").reverse().join("");
     await newOwner.save();
     mailTransport().sendMail({
       from:"dulalsuman853@gmail.com",

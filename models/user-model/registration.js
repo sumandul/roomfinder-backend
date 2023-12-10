@@ -15,6 +15,9 @@ const homeOwnerSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  token:{
+    type: String,
+  },
 type:{
   type:String,
   required:true,

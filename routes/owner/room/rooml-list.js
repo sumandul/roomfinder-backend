@@ -7,26 +7,27 @@ const defaultConfig = {
   address: "",
   title: "",
 };
-const Room = async (req, res, next) => {
+ module.exports = async (req, res, next) => {
   const { query } = req;
-  const { limit, page, address, title, gt, lte,lt } = {
+  const { limit, page, address, title, gt, lte, lt } = {
     ...defaultConfig,
     ...query,
   };
   const id = getMyProfile(req);
   try {
-    const total = await RoomPost.countDocuments({ userId: id });
-
+    const total = await RoomPost.countDocuments({
+      userId: id,
+      title: { $regex: title, $options: "i" },
+      address: { $regex: address, $options: "i" },
+    });
     const totalPages = Math.ceil(total / limit);
     const list = await RoomPost.find({
       userId: id,
       title: { $regex: title, $options: "i" },
       address: { $regex: address, $options: "i" },
-      price: {
-        $gt: gt,       // Greater than
-        // $lte: lte,     // Less than or equal to
-        // $lt: lt        // Less than
-    },
+      //   price: {
+      //     $gt: gt,
+      // },
     });
     // console.log(list)
     // const list = await RoomPost.find({
@@ -50,4 +51,4 @@ const Room = async (req, res, next) => {
   }
 };
 
-module.exports = Room;
+

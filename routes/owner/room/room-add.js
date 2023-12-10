@@ -2,7 +2,7 @@ const ErroHandler = require("../../../middleware/errorHandler");
 const RoomPost = require("../../../models/user-model/post");
 const ImgaeUploadService = require("../../..")
 
-const RoomAdd = async (req, res, next) => {
+ module.exports = async (req, res, next) => {
 
   
   try {
@@ -18,5 +18,3 @@ const RoomAdd = async (req, res, next) => {
     res.status(500).json({ message: "Server error " });
   }
 };
-
-module.exports = RoomAdd;
