@@ -1,5 +1,4 @@
-const RoomPost = require("../../../models/user-model/post");
-const { getMyProfile } = require("../../../helpers/jwtSign");
+const { getMyProfile } = require("../../../lib/jwtSign");
 
 const defaultConfig = {
   limit: 5,
@@ -8,21 +7,22 @@ const defaultConfig = {
   title: "",
 };
  module.exports = async (req, res, next) => {
-  const { query } = req;
+  console.log(req,'suman')
+  const { query ,model ,auth} = req;
+  console.log(auth)
   const { limit, page, address, title, gt, lte, lt } = {
     ...defaultConfig,
     ...query,
   };
-  const id = getMyProfile(req);
   try {
-    const total = await RoomPost.countDocuments({
-      userId: id,
+    const total = await model.post.countDocuments({
+      userId: auth.id,
       title: { $regex: title, $options: "i" },
       address: { $regex: address, $options: "i" },
     });
     const totalPages = Math.ceil(total / limit);
-    const list = await RoomPost.find({
-      userId: id,
+    const list = await model.post.find({
+      userId: auth.id,
       title: { $regex: title, $options: "i" },
       address: { $regex: address, $options: "i" },
       //   price: {
@@ -46,7 +46,7 @@ const defaultConfig = {
       total,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error)
     res.status(500).json({ message: "Server error" });
   }
 };

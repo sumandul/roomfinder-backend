@@ -1,8 +1,7 @@
 const ErroHandler = require("../../middleware/errorHandler");
-const Post = require("../../models/user-model/post");
-const UpdateStatus = async (req, res, next) => {
+const UpdateStatus = async ({body,model,params}, res, next) => {
   try {
-    const postExist = await Post.findByIdAndUpdate(req.params.id,{active:req.body.active}, { new: true });
+    const postExist = await model.post.findByIdAndUpdate(params.id,{active:body.active}, { new: true });
     if (!postExist) {
       return next(new ErroHandler("Post cannot found", 400));
     }
@@ -11,7 +10,6 @@ const UpdateStatus = async (req, res, next) => {
     postExist
     });
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: "Server error " });
   }
 };

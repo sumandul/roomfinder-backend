@@ -1,6 +1,5 @@
 const gurad= (key) => {
     return (req, res, next) => {
-        console.log(key)
         const given = req.headers["access-token"];
   
         if (given === undefined) {

@@ -6,7 +6,6 @@ cloudinary.config({
 });
 
 const ImageUpload = async (req, res, next) => {
-  console.log(req.files)
   const images = [];
 
   if (req.files.img && req.files.img.length > 0) {
@@ -20,7 +19,6 @@ const ImageUpload = async (req, res, next) => {
       return new Promise((resolve, reject) => {
         cloudinary.uploader.upload(imagePath, function (err, result) {
           if (err) {
-            console.log(err);
             reject(err);
           } else {
             resolve(result);

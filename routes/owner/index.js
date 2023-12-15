@@ -1,15 +1,14 @@
-const {Authorization} = require("../../helpers/jwtSign")
+const {Authorization} = require("../../lib/jwtSign")
 
 const router = require("express").Router();
-router.get("/myProfile",Authorization, require("./myProfile"));
-router.get("/room",Authorization, require("./room/rooml-list"));
-router.get("/list",Authorization, require("./list"));
-router.get("/:id", Authorization, require("./show"));
-router.post("/registration", require("./registration"));
+router.get("/myProfile", require("./myProfile"));
+router.get("/room", require("./room/rooml-list"));
+router.get("/list", require("./list"));
+router.get("/:id", require("./show"));
 router.post("/add-location", require("./addLocation"));
-router.post("/room-add",Authorization, require("./room/room-add"));
-router.get("/room/:id",Authorization, require("./room/show"));
-router.put("/room-update/:id",Authorization, require("./room/update"));
+router.post("/room-add", require("./room/room-add"));
+router.get("/room/:id", require("./room/show"));
+router.put("/room-update/:id",require("./room/update"));
 
 
 module.exports = router;

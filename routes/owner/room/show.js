@@ -1,8 +1,6 @@
-const RoomPost = require("../../../models/user-model/post");
-const Show= async (req, res) => {
-    // console.log(req.params)
+  module.exports = async ({model,params}, res) => {
     try {
-      const SingleRoom = await RoomPost.findById(req.params.id)
+      const SingleRoom = await model.post.findById(params.id)
       res.status(200).json(
         SingleRoom
       );
@@ -11,5 +9,3 @@ const Show= async (req, res) => {
     }
   };
 
-
-  module.exports = Show;

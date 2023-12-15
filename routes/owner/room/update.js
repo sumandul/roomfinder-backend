@@ -1,8 +1,7 @@
-const RoomPost = require("../../../models/user-model/post");
 
-const RoomUpdate = async ({ params, body }, res, next) => {
+ module.exports = async ({ params, body ,model}, res, next) => {
   try {
-    const updatedPost = await RoomPost.findByIdAndUpdate(
+    const updatedPost = await model.findByIdAndUpdate(
       { _id: params.id },
       body, // This should be the update object
       {
@@ -23,4 +22,3 @@ const RoomUpdate = async ({ params, body }, res, next) => {
   }
 };
 
-module.exports = RoomUpdate;

@@ -1,9 +1,8 @@
 // const ErroHandler = require("../../middleware/errorHandler");
-const HomeOwner = require("../../models/user-model/registration");
 
-const List = async (req, res,next) => {
+  module.exports= async ({model}, res,next) => {
     try {
-      const Owners = await HomeOwner.find()
+      const Owners = await model.user.find().select('-token')
       res.status(201).json({
         Owners
       });
@@ -12,5 +11,3 @@ const List = async (req, res,next) => {
     }
   };
 
-
-  module.exports =List;

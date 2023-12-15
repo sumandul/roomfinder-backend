@@ -1,8 +1,8 @@
 
 const express = require("express");
-require('dotenv').config();
+
 const util = require("util");
-const database = require('./lib/db');
+const database = require('./db');
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser")
 const guard = require("./middleware/guard")
@@ -16,13 +16,12 @@ const app = express();
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}))
-
 app.use(cors())
 app.use(guard(process.env.API_KEY));
 app.use((req, res, next) => {
+  req.model = require("./db/models");
+  req.lib = require("./lib");
   req.config = require("./config");
-  req.libs = require("./libs");
-
   next();
 });
 

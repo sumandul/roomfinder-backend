@@ -1,5 +1,3 @@
-const { isValidObjectId } = require("mongoose");
-const User = require("../models/user-model/registration");
 const nodemailer = require("nodemailer");
 exports.generateOTP = () => {
   let otp = "";

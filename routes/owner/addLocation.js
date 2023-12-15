@@ -1,14 +1,12 @@
 const ErroHandler = require("../../middleware/errorHandler");
-const Location = require("../../models/user-model/location");
-const AddLocation = async (req, res, next) => {
+ module.exports = async ({body,model}, res, next) => {
   try {
-    const { houseNo } = req.body;
-    const existingHouseNo = await Location.findOne({houseNo});
+    const existingHouseNo = await model.location.findOne({houseNo:body.houseNo});
     if (existingHouseNo) {
       return next(new ErroHandler("House Number Already register in our system", 400));
     }
     
-    const newLocation = new Location(req.body);
+    const newLocation = new model.location(body);
     await newLocation.save();
     res.status(201).json({
       newLocation
@@ -20,7 +18,6 @@ const AddLocation = async (req, res, next) => {
 };
 
 
-module.exports = AddLocation
 
 
 

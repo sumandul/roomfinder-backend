@@ -1,10 +1,9 @@
-const HomeOwner = require("../../models/user-model/registration");
 
 
 
-const Show= async (req, res) => {
+ module.exports= async ({model,params}, res) => {
     try {
-      const existingOwner = await HomeOwner.findById(req.params.id,)
+      const existingOwner = await model.user.findById(params.id)
       res.status(200).json(
         existingOwner
       );
@@ -12,6 +11,3 @@ const Show= async (req, res) => {
       res.status(500).json({ message: error });
     }
   };
-
-
-  module.exports = Show;

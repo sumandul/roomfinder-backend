@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const LocationSchema = new mongoose.Schema({
-  userId: {
+  postId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "RoomPost",
   },
   state: {
     type: String,

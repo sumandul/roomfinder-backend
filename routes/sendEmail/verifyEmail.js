@@ -1,14 +1,13 @@
-const User = require("../../models/user-model/registration");
-const verificationToken = require("../../models/user-model/verificationToken");
+
 const { mailTransport } = require("../../utlis/mail");
-const verifyEmail = async (req, res) => {
-  console.log("hello");
-  const { userId, otp } = req.body;
+const verifyEmail = async ({body,model}, res) => {
+
+  const { userId, otp } = body;
   if (!userId || !otp.trim()) return res.send({ message: "missing parameter" });
-  const user = await User.findById(userId);
+  const user = await model.user.findById(userId);
   if (user.verified)
     return res.send({ message: "this account is already verified" });
-  const token = await verificationToken.findOne({ owner: user._id });
+  const token = await model.verification_token.findOne({ owner: user._id });
   if (!token) return res.send({ message: "No user found" });
   const isMatched = await token.compareToken(otp);
   if (!isMatched) return res.send({ message: "Invalid OTP" });
